@@ -1,0 +1,781 @@
+@charset "windows-1251";
+
+/*�������� ������� ������ � ������ ��������, ��������� ������ ��� ���� ��������� �������� ����*/
+.exs_p-container,
+.exs_p-container *, 
+.exs_p-container *:before,
+.exs_p-container *:after {
+	box-sizing: border-box;
+	font-family: 'Roboto', arial;
+	line-height: normal;
+}
+
+/*�������� ��������� �������� ����*/
+.exs_p-container {
+	margin: 0 auto;
+	padding: 17px 0;
+}
+
+/*������� ��������� � ������� "��������� � ��������� �����������"*/
+.exs_p-brcr-container {
+	background-color: #EAEAEA;
+	padding: 7px 0;
+}
+
+/*���������� ��������� � ������� "��������� � ��������� �����������"*/
+.exs_p-brcr {
+	font-size: 0;
+}
+
+/*������ "��������� � ��������� �����������"*/
+.exs_p-brcr a {
+	padding-left: 11px;
+	background: url('https://export.otpusk.com/os/excursion/exp-back.jpg') no-repeat 0 4px;
+}
+
+.exs_p-content-wrap,
+.exs_p-brcr {
+	max-width: 951px;
+	margin: 0 auto;
+}
+
+/*��������� � ��������� ����, ������������ �� ������*/
+.exs_p-content {
+	max-width: 691px;
+	overflow: hidden;
+}
+
+/*�������� ����*/
+.exs_p-tour-title {
+	color: #4e91c7;
+	font-size: 19px;
+	padding: 17px 0 5px;
+	font-weight: 500;
+}
+/* -------------------- Page Styles (not required) */
+div { margin: 20px; }
+
+/* -------------------- Select Box Styles: bavotasan.com Method (with special adaptations by ericrasch.com) */
+/* -------------------- Source: http://bavotasan.com/2011/style-select-box-using-only-css/ */
+.styled-select {
+   background: url(http://i62.tinypic.com/15xvbd5.png) no-repeat 96% 0;
+   height: 29px;
+   overflow: hidden;
+   width: 240px;
+}
+
+.styled-select select {
+   background: transparent;
+   border: none;
+   font-size: 14px;
+   height: 29px;
+   padding: 5px; /* If you add too much padding here, the options won't show in IE */
+   width: 268px;
+}
+
+.styled-select.slate {
+   background: url(http://i62.tinypic.com/2e3ybe1.jpg) no-repeat right center;
+   height: 34px;
+   width: 240px;
+}
+
+.styled-select.slate select {
+   border: 1px solid #ccc;
+   font-size: 16px;
+   height: 34px;
+   width: 268px;
+}
+
+/* -------------------- Rounded Corners */
+.rounded {
+   -webkit-border-radius: 20px;
+   -moz-border-radius: 20px;
+   border-radius: 20px;
+}
+
+.semi-square {
+   -webkit-border-radius: 5px;
+   -moz-border-radius: 5px;
+   border-radius: 5px;
+}
+
+/* -------------------- Colors: Background */
+.slate   { background-color: #ddd; }
+.green   { background-color: #779126; }
+.blue    { background-color: #3b8ec2; }
+.yellow  { background-color: #eec111; }
+.black   { background-color: #000; }
+
+/* -------------------- Colors: Text */
+.slate select   { color: #000; }
+.green select   { color: #fff; }
+.blue select    { color: #fff; }
+.yellow select  { color: #000; }
+.black select   { color: #fff; }
+
+
+/* -------------------- Select Box Styles: danielneumann.com Method */
+/* -------------------- Source: http://danielneumann.com/blog/how-to-style-dropdown-with-css-only/ */
+#mainselection select {
+   border: 0;
+   color: #EEE;
+   background: transparent;
+   font-size: 20px;
+   font-weight: bold;
+   padding: 2px 10px;
+   width: 378px;
+   *width: 350px;
+   *background: #58B14C;
+   -webkit-appearance: none;
+}
+
+#mainselection {
+   overflow:hidden;
+   width:350px;
+   -moz-border-radius: 9px 9px 9px 9px;
+   -webkit-border-radius: 9px 9px 9px 9px;
+   border-radius: 9px 9px 9px 9px;
+   box-shadow: 1px 1px 11px #330033;
+   background: #58B14C url("http://i62.tinypic.com/15xvbd5.png") no-repeat scroll 319px center;
+}
+
+
+/* -------------------- Select Box Styles: stackoverflow.com Method */
+/* -------------------- Source: http://stackoverflow.com/a/5809186 */
+select#soflow, select#soflow-color {
+   -webkit-appearance: button;
+   -webkit-border-radius: 2px;
+   -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+   -webkit-padding-end: 20px;
+   -webkit-padding-start: 2px;
+   -webkit-user-select: none;
+   background-image: url(http://i62.tinypic.com/15xvbd5.png), -webkit-linear-gradient(#FAFAFA, #F4F4F4 40%, #E5E5E5);
+   background-position: 97% center;
+   background-repeat: no-repeat;
+   border: 1px solid #AAA;
+   color: #555;
+   font-size: inherit;
+   margin: 20px;
+   overflow: hidden;
+   padding: 5px 10px;
+   text-overflow: ellipsis;
+   white-space: nowrap;
+   width: 300px;
+}
+
+
+select#soflow-color {
+   color: #fff;
+   background-image: url(http://i62.tinypic.com/15xvbd5.png), -webkit-linear-gradient(#779126, #779126 40%, #779126);
+   background-color: #779126;
+   -webkit-border-radius: 20px;
+   -moz-border-radius: 20px;
+   border-radius: 20px;
+   padding-left: 15px;
+}
+/*������� ����*/
+.exs_p-geo {
+	color: #777;
+	padding-left: 17px;
+	font-size: 12px;
+	background: url('https://export.otpusk.com/os/excursion/exp-geo.png') no-repeat 0 0;
+	line-height: 16px;
+	padding-bottom: 20px;
+}
+.exs_p-geo span {
+    font-style: italic;
+    color: #999;
+}
+
+/*=====������� (������)=====*/
+.exs_p-slider-container {
+	position: relative;
+	margin-bottom: 20px;
+}
+.exs_p-slider-slides {
+	height: 300px;
+	overflow: hidden;
+}
+.exs_p-slider-slide {
+	height: 300px;
+	background-color: #EAEAEA;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+.galleria-image-nav-left,
+.galleria-image-nav-right,
+.exs_p-slider-arrow {
+	position: absolute !important;
+	top: 50% !important;
+	height: 32px !important;
+	width: 24px !important;
+    opacity: .8 !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+	margin-top: -16px !important;
+	cursor: pointer !important;
+	z-index: 2 !important;
+}
+.galleria-image-nav-left:hover,
+.galleria-image-nav-right:hover,
+.exs_p-slider-arrow:hover {
+    opacity: 1 !important;
+}
+.galleria-image-nav-left,
+.exs_p-slider-prev {
+	left: 8px !important;
+    background-image: url(https://export.otpusk.com/os/excursion/exp-left-arr.png);
+}
+.galleria-image-nav-right,
+.exs_p-slider-next {
+	right: 8px !important;
+    background-image: url(https://export.otpusk.com/os/excursion/exp-right-arr.png)
+}
+.exs_dot-container-inner {
+	position: absolute;
+	bottom: 15px;
+	left: 0;
+	right: 0;
+	text-align: center;
+	font-size: 0;
+	z-index: 2;
+}
+.exs_slide-dot {
+	display: inline-block;
+	height: 12px;
+	width: 12px;
+	border: 1px solid #D4D4D2;
+	border-radius: 3px;
+	background-color: #fff;
+	cursor: pointer;
+	margin: 0 3px;
+}
+.exs_slide-dot:hover {
+	background-color: #BDD9FF;
+	border-color: #fff;
+}
+.exs_slide-dot.selected {
+	background-color: #678EC2;
+	border-color: #fff;
+}
+.exs_activity-gallery {
+	position: relative;
+}
+#exs_activity-gallery-images {
+    height: 358px !important;
+    margin-bottom: 20px;
+    overflow: hidden;
+	position: relative;
+	width: 100%;
+}
+.exs_activity-gallery-images .galleria-stage {
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+.exs_activity-gallery-images .galleria-container {
+    width: 691px !important;
+    height: 358px !important;
+}
+.exs_activity-gallery,
+.exs_activity-gallery .galleria-container,
+.exs_activity-gallery .galleria-stage,
+.exs_activity-gallery .galleria-images,
+.exs_activity-gallery .galleria-image {
+	width: 100% !important;
+}
+/*=====������� (�����)=====*/
+
+/*��������� � ��������� ���� ��� ��������� (����, �������, ��������� � �.�.)*/
+.exs_p-tour-info-container {
+	margin: 0 -15px 20px;
+}
+
+/*������� ��������*/
+.exs_p-tour-info-col {
+	float: left;
+	padding: 0 15px;
+	width: 33.3333%;
+	color: #777;
+	font-size: 12px;
+}
+
+/*���� ��������*/
+.exs_p-tour-info_item {
+	min-height: 21px;
+	margin-bottom: 4px;
+	background-repeat: no-repeat;
+	background-position: 0 0;
+	padding-top: 5px;
+	padding-left: 30px;
+	position: relative;
+}
+
+/*���� � ����������� �����*/
+.exs_p-people {
+    background-image: url(https://export.otpusk.com/os/excursion/exp-people.png);
+}
+
+/*���� � ������ ����*/
+.exs_p-date {
+    background-image: url(https://export.otpusk.com/os/excursion/exp-date.png);
+	background-position: 0 2px;
+}
+
+/*������������ ������� "��������� � ��������� �����������" � "������ ����"*/
+.exs_p-underline {
+	color: #4e91c7;
+	text-decoration: none;
+	font-size: 12px;
+	display: inline-block;
+	border-bottom: 1px solid #CCD5E1;
+	cursor: pointer;
+}
+
+/*=====��������� "������ ����" (������)=====*/
+.exs_slider-wrap {
+	background-color: #EAEAEA;
+	border-radius: 5px;
+	position: relative;
+	padding: 10px 20px 10px 70px;
+	margin-top: -10px;
+}
+
+/*���������*/
+.exs_slider-title {
+	position: absolute;
+	height: 40px;
+	width: 85px;
+	top: 10px;
+	left: 0;
+	text-align: center;
+	color: #777;
+	font-size: 12px;
+	padding: 5px 20px 0 0;
+}
+
+/*����������� ������-�����*/
+.exs_slider-wrap:before {
+    border-style: solid;
+    border-width: 0 4px 4px 4px;
+    border-color: transparent transparent #e2e8ef;
+    content: "";
+    height: 0;
+    position: absolute;
+    left: 5px;
+    top: -4px;
+    width: 0;
+}
+
+/*������ � ������ � �����*/
+.exs_slider > div {
+	text-align: center;
+	height: 46px;
+	position: relative;
+	color: #4e91c7;
+	cursor: pointer;
+	float: left;
+	width: 14.2857%;
+}
+
+/*� �������� ���������*/
+.exs_slider > div.chosen {
+	color: #a9cf55;
+	background-color: #F8F8F8;
+}
+
+/*��� ���������*/
+.exs_slider > div:hover {
+	background-color: #F8F8F8;
+}
+
+/*����� ������ ������*/
+.exs_slider > div:after {
+	content: '';
+	position: absolute;
+	top: 5px;
+	height: 36px;
+	width: 1px;
+	right: 0;
+	background-color: #D1D1D1;
+}
+
+/*����*/
+.exs_slider-dates {
+	font-size: 13px;
+	padding: 5px 0 3px;
+	white-space: nowrap;
+}
+
+/*����*/
+.exs_slider-price {
+	font-size: 11px;
+	white-space: nowrap;
+}
+.exs_slider-price strong {
+	font-size: 13.8px;
+}
+
+.exs_slider,
+.exs_slider-wrap {
+	display: none;
+}
+.visbl .exs_slider,
+.exs_slider-wrap.visbl {
+	display: block;
+}
+.exs_slider:after {
+	content: '';
+	display: table;
+	clear: both;
+}
+.exs_slider-wrap:after {
+	content: '';
+    width: 1px;
+    top: 0;
+    bottom: 0;
+    position: absolute;
+    background-color: #EAEAEA;
+    right: 20px;
+}
+
+/*����� ��� ��������� ���������*/
+@media screen and (max-width: 740px) {
+	.exs_slider > div {
+		width: 16.6666%;
+	}
+}
+@media screen and (max-width: 640px) {
+	.exs_slider > div {
+		width: 20%;
+	}
+}
+@media screen and (max-width: 570px) {
+	.exs_slider-wrap {
+		padding: 35px 20px 10px 20px;
+	}
+	.exs_slider-title {
+		height: auto;
+		width: auto;
+		left: 20px;
+		top: 5px;
+		text-align: left;
+	}
+}
+@media screen and (max-width: 640px) {
+	.exs_slider > div {
+		width: 25%;
+	}
+}
+@media screen and (max-width: 420px) {
+	.exs_slider-wrap {
+		padding: 35px 10px 10px 10px;
+	}
+	.exs_slider-wrap:after {
+	    right: 10px;
+	}
+	.exs_slider-title {
+		left: 10px;
+	}
+	.exs_slider > div {
+		width: 33.3333%;
+	}
+}
+@media screen and (max-width: 340px) {
+	.exs_slider > div {
+		width: 50%;
+	}
+}
+/*=====��������� "������ ����" (�����)=====*/
+
+/*������ ����������*/
+.exs_p-transport:before {
+	content: '';
+    background-image: url(https://export.otpusk.com/os/excursion/transport.png);
+    background-repeat: no-repeat;
+	position: absolute;
+	width: 25px;
+	height: 30px;
+	left: 0;
+	top: 0;
+}
+
+/*������ ��������*/
+.exs_p-transport.bus:before {
+	background-position: 0px 0px;
+	height: 20px
+}
+
+/*������ ������*/
+.exs_p-transport.train:before {
+	background-position: 2px -62px;
+    height: 21px;
+}
+
+/*������ ��������*/
+.exs_p-transport.air:before {
+	background-position: 0 -42px;
+    height: 20px;
+}
+
+/*������ "��� ����������"*/
+.exs_p-transport.no:before {
+	background-position: 0 -83px;
+    height: 17px;
+    top: 3px;
+}
+
+/*������ �������*/
+.exs_p-transport.ship:before {
+	background-position: 0 -20px;
+    height: 22px;
+}
+
+/*������ �������*/
+.exs_p-food {
+    background-image: url(https://export.otpusk.com/os/excursion/exp-food.png);
+	background-position: 3px 2px;
+}
+
+/*������ � ������� ��������*/
+.exs_p-etc {
+    background-image: url(https://export.otpusk.com/os/excursion/exp-etc.png);
+	background-position: 0 5px;
+}
+
+/*��������� � ����� ���� � ������� "�������� ���"*/
+.exs_p-table {
+	display: table;
+	width: 100%;
+	margin-bottom: 10px;
+	margin-top: 20px;
+}
+.exs_p-table:before {
+	content: '';
+	display: table;
+	clear: both;
+}
+
+/*����� � ������ ���� ���������� � ����� ���� � ������� "�������� ���"*/
+.exs_p-table-col {
+	display: table-cell;
+	vertical-align: top;
+	color: #777;
+}
+
+/*����� ����*/
+.exs_p-table-col-1 {
+	border-top: 1px solid #B6B6B6;
+	font-size: 17px;
+	padding-top: 5px;
+}
+
+/*������� ���� ����������� ������ �����*/
+.exs_p-green {
+	color: #a9cf55;
+}
+.exs_p-table-col-1 .exs_p-green {
+	font-weight: 900;
+}
+
+/*����� � ��������� � ���*/
+.exs_p-table-col-1 .exs_p-green span {
+	font-size: 22px;
+}
+
+/*�������������� ����*/
+.exs_p-table-col-1 .exs_p-green .exs_p-green-spare {
+	font-size: 14px;
+	font-weight: 400;
+}
+
+/*"�� ��������"*/
+.exs_p-table-col-1 .exs_p-green .exs_p-green-info {
+	font-size: 17px;
+	font-weight: 400;
+	color: #777;
+}
+
+/*����� ���� "����������� ���������"*/
+.exs_p-tour-bl .exs_p-table-col-1 {
+	border-color: transparent;
+}
+
+/*������ ����*/
+.exs_p-table-col-2 {
+	width: 225px;
+	padding-left: 10px;
+	text-align: center;
+}
+
+/*������ "�������� ���" � ������ �����*/
+.exs_p-order-btn {
+	background: #a9cf55;
+	border: 1px solid #a9cf55;
+	border-radius: 4px;
+	cursor: pointer;
+	height: 35px;
+	line-height: 33px !important;
+	color: #fff;
+	font-size: 16px;
+	font-weight: 700;
+}
+.exs_p-order-btn:hover {
+	background-color: #fff;
+	color: #a9cf55;
+}
+
+/*��� ��� ������� "�������� ���"*/
+.exs_p-tour-code {
+	font-size: 12px;
+	margin-top: 7px;
+}
+
+/*=====����� ������ ���� (������)=====*/
+body .os-order-form-wrap {background: #fff; border: 5px solid #eee;}
+body .os-order-form-wrap .os-order-header-title {
+  color: #4E91C7;
+  font-size: 27px;
+  font-weight: bold;
+  font-family: arial;
+}
+body .os-order-first-title,
+body .os-order-and-title,
+body .os-order-second-title,
+body .os-order-input-dates label {font-family: arial; color: #666;}
+body .os-order-form-wrap select {font-family: arial; color: #000;}
+body .os-order-select-wrapper,
+body .os-order-select-wrapper:after {background: #fff;}
+body .os-order-select-wrapper {border-radius: 5px; border: 1px solid #c3c3c3;}
+body .os-order-input-duration .os-order-select-wrapper {border-radius: 5px;}
+body .os-order-form-wrap .os-order-select-wrapper:after {color: #4E91C7;}
+body .os-order-user-contacts input,
+body .os-order-form-wrap textarea {font-family: arial; color: #000; background: #F0F0F0; border-color: #c3c3c3;}
+body .os-order-user-contacts input,
+body .os-order-form-wrap textarea {border-radius: 0px 0px 0px 0px;}
+body .os-order-input-office .os-order-select-wrapper {border-radius: 0px 0px 0px 0px;}
+body .os-order-input-dates .os-order-input-wrapper {
+  font-family: arial;
+  color: #000;
+  background: #fff;
+  border-radius: 5px;
+  border-color: #c3c3c3;
+}
+body .os-order-input-dates .os-order-input-wrapper:after {color: #4E91C7;}
+body .os-order-form-submit_button {
+  font: bold 18px Arial;
+  color: #ffffff;
+  border: 5px solid #dbdbdb;
+  border-radius: 25px;
+  background: #4E91C7;
+  height: 50px;
+  width: 200px;
+}
+body .os-order-form-submit_button:hover {
+  background: #4E91C7;
+  border-color: #B7B7B7;
+}
+/*=====����� ������ ���� (�����)=====*/
+
+/*��������� � ��������� ��������� ����*/
+.exs_p-tour-bl {
+	margin-top: 40px;
+	font-size: 14px;
+	color: #777;
+	white-space: pre-line;
+}
+.exs_p-tour-bl,
+.exs_p-tour-bl * {
+	line-height: 140%;
+}
+
+/*�������� ����*/
+.exs_p-tour-bl-title {
+	text-transform: uppercase;
+	font-size: 18.5px;
+	color: #4e91c7;
+	font-weight: 700;
+}
+
+/*����� ��� �������*/
+.exs_p-tour-bl ul {
+	margin: 0;
+	padding: 0;
+}
+.exs_p-tour-bl li {
+	list-style-type: none;
+	padding-left: 20px;
+	background: url(https://export.otpusk.com/os/excursion/exp-li.jpg) no-repeat 12px 9px;
+}
+
+/*����� ��� �����������*/
+.exs_p-tour-bl img {
+    float: left;
+    margin-bottom: 5px;
+    margin-right: 5px;
+}
+
+/*����� ��� ��������� ������ �������� ����*/
+.exs_p-tour-bl pre {
+    margin: 0;
+    padding: 0;
+    white-space: pre-line;
+    font-size: 14px;
+    border: none;
+    background: none;
+    color: #777;
+}
+
+/*��������� ������� ������ � �������� ����*/
+.exs_p-tour-bl .exs_p-tour-bl-title + b,
+.exs_p-tour-bl pre + b {
+    font-size: 15px;
+    font-weight: 900;
+    margin: 20px 0 0;
+    color: #a9cf55;
+    display: block;
+}
+
+/*����������� �� ����������� ������, ����� �������� �� �������� ���� �� �����*/
+.exs_p-tour-bl b + div + pre {
+	min-height: 85px;
+}
+
+/*����� ��� ��������� ���������*/
+.exs_mobile-form .exs_p-brcr-container,
+.exs_mobile-form .exs_p-content {
+	padding-left: 10px;
+	padding-right: 10px;
+}
+.exs_res-one-col .exs_p-tour-info-col {
+	width: 50%;
+}
+.exs_table-one-col .exs_p-tour-info-col {
+	width: 100%;
+}
+.exs_table-one-col .exs_p-table,
+.exs_table-one-col .exs_p-table-col {
+	display: block;
+	width: 100% !important;
+	max-width: 215px;
+	margin-bottom: 10px;
+}
+.exs_table-one-col .exs_p-table-col-1 {
+	border-color: transparent !important;
+}
+.exs_table-one-col .exs_p-table-col-2 {
+	padding-left: 0;
+}
+.exs_sm-mobile-form.exs_table-one-col .exs_p-table,
+.exs_sm-mobile-form.exs_table-one-col .exs_p-table-col {
+	max-width: 1250px;
+}
+
+/*���������������� ����������� ������ ��������*/
+.galleria-image img {
+	top: 0 !important;
+}

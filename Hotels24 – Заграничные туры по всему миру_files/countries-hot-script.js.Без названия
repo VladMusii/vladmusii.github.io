@@ -1,0 +1,308 @@
+(function ( $ ) {
+    var CountriesToursModule = function () {
+        self                 = this;
+        self.countriesList   = $( '#hot-tours-countries' );
+        self.offersList      = $( '#hot-tours-offers' );
+        self.requestsStore   = [];
+        self.apikey          = window.hot_countries_apikey;
+        self.cache = {
+            modules: [],
+            tours: [],
+            hotels: []
+        };
+
+        // Get initial values and get first hot tours
+        this.init = function () {
+            var firstCountry = self.countriesList.find( 'a' ).eq( 0 );
+            firstCountry.parent().addClass( 'active' );
+            this.getTours( firstCountry.data( 'module-id' ) );
+            this.assignListners();
+        };
+
+        // Paint country's hot tours
+        this.paintCountryTours = function ( moduleID ) {
+            if ( !moduleID ) {
+                return;
+            }
+            // Remove old and show loader
+            self.offersList.find( '.b-offers__offer' ).remove();
+            self.offersList.find( '.b-offers__loader' ).fadeIn();
+            self.offersList.find( '.b-offers__divider' ).hide();
+
+            self.countriesList.find( '.active' ).removeClass( 'active' );
+            self.countriesList.find( '[data-module-id=' + moduleID + ']' ).parent().addClass( 'active' );
+            self.getTours( moduleID );
+        };
+
+        // Get hot tours list
+        this.getTours = function ( moduleID ) {
+            // Check cache
+            if(self.cache.modules.hasOwnProperty(moduleID)) {
+                self.cache.modules[moduleID].forEach(function(tourID) {
+                    self.getTour(tourID, moduleID);
+                });
+                return true;
+            }
+            // Abort previous requests
+            self.clearRequestsStore();
+
+            var requestKey = Date.now();
+            self.requestsStore[requestKey] = $.ajax( {
+                url:      'https://export.otpusk.com/api/tours/hotBlock',
+                jsonp:    'callback',
+                dataType: 'jsonp',
+                data:     {
+                    access_token:  self.apikey,
+                    blockId: moduleID
+                },
+                success:  function ( response ) {
+                    if(response.hasOwnProperty('tours') && response.tours.length) {
+                        self.cache.modules[moduleID] = response.tours;
+                        response.tours.forEach(function(tourID) {
+                            self.getTour(tourID, moduleID);
+                        });
+                    }
+                },
+                // Remove request from store
+                complete: function() {
+                    delete self.requestsStore[requestKey];
+                }
+            } );
+        };
+
+        // Get tour data
+        this.getTour = function(tourID, moduleID) {
+            if ( !tourID ) { return false; }
+
+            // Check cache
+            if(self.cache.tours.hasOwnProperty(tourID)) {
+                var tour = self.cache.tours[ tourID ];
+                tour     = self.formatTourData( tour );
+                self.renderTour( tour );
+                return true;
+            }
+
+            var requestKey = Date.now();
+            self.requestsStore[requestKey] = $.ajax( {
+                url:      'https://export.otpusk.com/api/tours/hotTour',
+                jsonp:    'callback',
+                dataType: 'jsonp',
+                data:     {
+                    access_token:  self.apikey,
+                    blockId: moduleID,
+                    id: tourID
+                },
+                success: function(response) {
+                    if(response.hasOwnProperty('searchedTour') && typeof response.searchedTour === 'object') {
+                        tour = false;
+                        // Check hotel duplicates
+                        if(self.cache.hotels.hasOwnProperty(response.searchedTour.data_view.hotelId)) {
+                            if(response.searchedTour.hasOwnProperty("offers")) {
+                                for(var index in response.searchedTour.offers) {
+                                    var offer = response.searchedTour.offers[index];
+                                    if(offer.hasOwnProperty('hotelId') && !self.cache.hotels.hasOwnProperty(offer.hotelId)) {
+                                        tour = offer;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                        else {
+                            tour = response.searchedTour.data_view;
+                        }
+                        if(tour) {
+                            // Format tour data and cache it
+                            self.cache.tours[ tourID ] = tour;
+                            self.cache.hotels[ tour.hotelId ] = tour;
+                            tour                       = self.formatTourData( tour );
+                            self.renderTour( tour );
+                        }
+                    }
+                },
+                complete: function () { delete self.requestsStore[ requestKey ]; }
+            })
+        };
+
+        // Create object with formatted tour data
+        this.formatTourData = function ( tour ) {
+            if ( JSON.stringify(tour) === "{}" ) {
+                console.log( 'Wrong response data' );
+                return false;
+            }
+
+            var formattedTour = {};
+            formattedTour.hotelName       = tour.hotelName;
+            formattedTour.hotelStars      = parseInt(tour.hotelStars);
+            formattedTour.hotelGeo        = tour.countryName + ', ' + tour.resortName;
+            formattedTour.cityFrom        = 'из ' + tour.cityFrom;
+            formattedTour.depDate         = new Date( tour.dateString );
+            formattedTour.nights          = (tour.length - 1) + ' ночей';
+            formattedTour.roomShort       = 'DBL';
+            formattedTour.roomLong        = '';
+            formattedTour.foodShort       = tour.food.toUpperCase();
+            formattedTour.foodLong        = tour.foodString.toLowerCase();
+            formattedTour.price           = tour.priceUahOne + ' грн';
+            formattedTour.priceDescrLong  = 'цена за человека';
+            formattedTour.priceDescrShort = 'за человека';
+            formattedTour.tourLink        = '/search/' + tour.tourLink;
+            formattedTour.previewImgUrl   = tour.imgSrc;
+            return formattedTour;
+        };
+
+        // Paint tour
+        this.renderTour     = function ( fTour ) {
+            $tour = $( '<div>' )
+                .addClass( 'b-offers__offer b-offers__star' + fTour.hotelStars )
+                .css( 'opacity', '0' );
+            $( '<div>' )
+                .addClass( 'offer-image' )
+                .append(
+                    $( '<a>' )
+                        .attr( { href: fTour.tourLink } )
+                        .append(
+                            $( '<img>' )
+                                .attr( { src: fTour.previewImgUrl } )
+                        )
+                )
+                .appendTo( $tour );
+            $( '<div>' )
+                .addClass( 'offer-descr' )
+                .append(
+                    $( '<a>' )
+                        .attr( { href: fTour.tourLink } )
+                        .append(
+                            $( '<div>' )
+                                .addClass( 'title' )
+                                .append(
+                                    $( '<span>' ).append( fTour.hotelName )
+                                )
+                        )
+                )
+                .append(
+                    $( '<div>' )
+                        .addClass( 'place' )
+                        .append( fTour.hotelGeo )
+                )
+                .append(
+                    $( '<div>' )
+                        .addClass( 'text' )
+                        .append( fTour.cityFrom + ' ' )
+                        .append( fTour.depDate.toLocaleDateString( 'ru-RU' ) + ', ' )
+                        .append( fTour.nights + ', ' )
+                        .append( fTour.roomShort + ', ' )
+                        .append( fTour.roomLong + ', ' )
+                        .append( fTour.priceDescrLong + ', ' )
+                        .append( fTour.foodShort + ' ' )
+                        .append( fTour.foodLong )
+                )
+                .appendTo( $tour );
+            $( '<div>' )
+                .addClass( 'offer-order-button' )
+                .append(
+                    $( '<div>' )
+                        .addClass( 'price' )
+                        .append( fTour.price )
+                        .append(
+                            $( '<div>' )
+                                .addClass( 'small' )
+                                .append( fTour.priceDescrShort )
+                        )
+                )
+                .append(
+                    $( '<a>' )
+                        .addClass( 'button' )
+                        .attr( { href: fTour.tourLink } )
+                        .append( 'Подробнее' )
+                )
+                .appendTo( $tour );
+
+            self.offersList.find( '.b-offers__loader' ).fadeOut();
+            $categoryDivider = self.offersList.find('.b-offers__divider.b-offers__star' + fTour.hotelStars);
+            $categoryItems = self.offersList.find('.b-offers_items.b-offers__star' + fTour.hotelStars);
+            if($categoryDivider.length) {
+                $categoryDivider.fadeIn();
+                $tour.appendTo($categoryItems);
+            }
+            else {
+                $tour.appendTo(self.offersList);
+            }
+            $tour.animate( {
+                opacity: 1
+            }, 50 );
+        };
+
+        // Assign listners to elemetns
+        this.assignListners = function () {
+            self.countriesList.find( '.b-offers-countries__country a' ).each( function ( cntryIndex, cntryObject ) {
+                $( cntryObject ).click( function ( e ) {
+                    e.stopPropagation();
+
+                    //misha
+                    $( '.b-offers-container' ).removeClass( 'active' );
+                    $( '.fake-country-btn-mobile' ).text( $( this ).text() );
+                    $( document ).unbind( 'click.hotEvent' );
+                    clickHot = false;
+
+                    var moduleId = +$( this ).attr( 'data-module-id' );
+                    self.paintCountryTours( moduleId );
+                } );
+            } );
+        };
+
+        // Clear requests queue
+        this.clearRequestsStore = function () {
+            self.requestsStore.forEach(function( request, key){
+                request.abort();
+                delete self.requestsStore[key];
+            });
+        };
+
+        this.init();
+    };
+    $( document ).ready( function () {
+        if ( document.getElementById( 'hot-offers' ) ) {
+            var countriesTours = new CountriesToursModule();
+        }
+
+        //misha
+        $( 'body' ).on( 'click', '.fake-country-btn-mobile', function ( e ) {
+            if ( !$( '.b-offers-container' ).hasClass( 'active' ) ) {
+                $( '.b-offers-container' ).addClass( 'active' );
+            }
+
+            var clickHot = true;
+            $( document ).bind( 'click.hotEvent', function ( e ) {
+                if ( (!clickHot && $( e.target ).closest( '.b-offers-countries' ).length == 0) ) {
+                    $( '.b-offers-container' ).removeClass( 'active' );
+                    $( document ).unbind( 'click.hotEvent' );
+                }
+                clickHot = false;
+            } );
+        } );
+
+        $( 'body' ).on( 'click', '.b-offers__divider', function () {
+            if ( !$( '.fake-country-btn-mobile' ).is( ":hidden" ) ) {
+                $( '.b-offers__divider' ).removeClass( 'active' );
+                $( this ).addClass( 'active' );
+                if ( $( '.b-offers__divider.b-offers__star5' ).hasClass( 'active' ) ) {
+                    $( '.b-offers__offer' ).hide();
+                    $( '.b-offers__offer.b-offers__star5' ).show();
+
+                }
+                if ( $( '.b-offers__divider.b-offers__star4' ).hasClass( 'active' ) ) {
+                    $( '.b-offers__offer' ).hide();
+                    $( '.b-offers__offer.b-offers__star4' ).show();
+                }
+                if ( $( '.b-offers__divider.b-offers__star3' ).hasClass( 'active' ) ) {
+                    $( '.b-offers__offer' ).hide();
+                    $( '.b-offers__offer.b-offers__star3' ).show();
+                }
+                if ( $( '.b-offers__divider.b-offers__star2' ).hasClass( 'active' ) ) {
+                    $( '.b-offers__offer' ).hide();
+                    $( '.b-offers__offer.b-offers__star2' ).show();
+                }
+            }
+        } );
+
+    } );
+})( jQuery );

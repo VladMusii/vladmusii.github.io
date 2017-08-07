@@ -1,0 +1,874 @@
+@charset "windows-1251";
+
+/*Алгоритм расчета ширины и высоты элемента, семейство шрифта для всех элементов формы поиска*/
+.exs_container,
+.exs_container *,
+.exs_container *:before,
+.exs_container *:after {
+    box-sizing: border-box;
+    font-family: 'Roboto', arial;
+    line-height: normal;
+}
+
+/*По умолчанию элементы формы прозрачны и становяться видимы после загрузки документа, чтобы визуально верстка не прыгала*/
+.exs_search-form > * {
+    opacity: 0;
+}
+
+.clearfix:after {
+    content: '';
+    display: table;
+    clear: both;
+}
+.fl {
+    float: left;
+}
+.fr {
+    float: right;
+}
+
+/*Основной контейнер формы ограничивающий максимальную ширину*/
+.exs_container {
+    margin: 0 auto;
+    max-width: 951px;
+    padding: 20px 0;
+}
+
+/*Форма*/
+.exs_search-form {
+    min-height: 156px;
+    background: #4e91c7 url(https://export.otpusk.com/os/excursion/exs-baloon-sm.png) no-repeat -12px 85px;
+    border-radius: 3px;
+    color: #fff;
+    padding: 0 30px 32px;
+    position: relative;
+}
+
+/*Стили для всех input и select формы*/
+#exs_container #exs_search-container .exs_search-form input,
+#exs_container #exs_search-container .exs_search-form select {
+    color: #666;
+    font-size: 14.5px;
+}
+
+/*Заголовок формы "Экскурсионные туры"*/
+.exs_search-title {
+    font: 700 19px / 60px 'Roboto', arial;
+    height: 67px;
+    margin: 0 -30px;
+    padding: 0 30px;
+    background: url(https://export.otpusk.com/os/excursion/exs-baloon-lg.png) no-repeat right -24px;
+}
+
+/*Текст справа от заголовка формы (X программ от Y операторов)*/
+.exs_search-title span {
+    color: #c4dff4;
+    font: 400 15px 'Roboto';
+    margin-left: 5px;
+}
+
+.exs_search-to,
+.exs_search-dates,
+.exs_search-duration,
+.exs_search-type {
+    position: relative;
+    float: left;
+}
+
+/*Внешний отступ слева элементов выбора дат, длительности, типа тура*/
+.exs_search-dates,
+.exs_search-duration,
+.exs_search-type {
+    margin-left: 7px;
+}
+
+/*Контейнер для элементов связанных с выбором пунктов назначения тура*/
+.exs_search-to {
+    width: 245px;
+}
+
+/*Поле выбора страны, курорта*/
+#exs_container #exs_search-container .exs_search-to input {
+    height: 37px;
+    width: 245px;
+    border-radius: 3px;
+    border: 1px solid #d4d4d4;
+    display: block;
+    padding: 0 30px 0 10px;
+    background: #fff;
+}
+
+/*Треурольник в правой части поля выбора страны, курорта*/
+.exs_autocomplete-toggle_element {
+    display: block;
+    width: 24px;
+    height: 31px;
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    background: #fff url(https://export.otpusk.com/os/excursion/select-bg.png) no-repeat 8px center;
+    cursor: pointer;
+    border-radius: 3px;
+}
+.exs_autocomplete-toggle_element:hover {
+    background-color: #eee;
+}
+
+/*Контейнер выбора дат (двух полей)*/
+.exs_search-cols {
+    height: 37px;
+    background: #fff url(https://export.otpusk.com/os/excursion/datep-i.png) no-repeat 5px 8px;
+    border-radius: 3px;
+    border: 1px solid #d4d4d4;
+    padding: 2px 2px 2px 28px;
+}
+
+/*Контейнер выбора дат (каждого поля)*/
+.exs_search-col {
+    float: left;
+    width: 76px;
+    position: relative;
+}
+
+/*Элемент над выбором дат "Выберите даты начала тура"*/
+.exs_search-dates-popup {
+    position: absolute;
+    background-color: #E2E8EF;
+    border-radius: 5px;
+    font-size: 11px;
+    right: 0;
+    left: 29px;
+    top: -23px;
+    color: #666;
+    padding: 3px 7px;
+    text-align: center;
+    height: 20px;
+    display: none;
+}
+.exs_tip-calendar .exs_search-dates-popup,
+.exs_tip-hovered .exs_search-dates-popup,
+.exs_tip-active.exs_search-dates-popup {
+    display: block;
+}
+
+/*Треугольники под элементом над выбором дат*/
+.exs_search-dates-popup:before,
+.exs_search-dates-popup:after {
+    border-color: #E2E8EF transparent transparent;
+    border-style: solid;
+    border-width: 4px 4px 0;
+    content: "";
+    height: 0;
+    position: absolute;
+    top: 20px;
+    width: 0;
+}
+.exs_search-dates-popup:before {
+    left: 36px;
+}
+.exs_search-dates-popup:after {
+    right: 36px;
+}
+
+/*input'ы выбора дат*/
+#exs_container #exs_search-container .exs_datepicker-wrap input {
+    height: 31px;
+    width: 100%;
+    border-radius: 3px;
+    display: block;
+    padding: 0 0 0 4px;
+    background: #E2E8EF;
+    border: none;
+    cursor: text;
+}
+
+/*Разделитель между полями выбора дат*/
+.exs_datepicker-wrap-2:before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 15px;
+    left: -13px;
+    width: 12px;
+    height: 1px;
+    background-color: #666666;
+}
+
+/*Горизонтальный отступ между полями выбора дат*/
+.exs_datepicker-wrap-2 {
+    margin-left: 14px;
+}
+
+/*Контейнер длительности тура*/
+.exs_search-duration {
+    width: 130px;
+}
+
+/*Контейнер типа тура*/
+.exs_search-type {
+    width: 158px;
+}
+
+/*Визуальная оболочка select'ов, сами элименты select не имеют фона и других визуальных стилей*/
+.exs_search-label {
+    height: 37px;
+    width: 100%;
+    background-color: #fff;
+    border-radius: 3px;
+    border: 1px solid #d4d4d4;
+    display: block;
+    position: relative;
+    cursor: pointer;
+    float: left;
+}
+
+/*Треурольник в правой части select'ов*/
+.exs_search-label:after {
+    content: '';
+    display: block;
+    width: 20px;
+    height: 35px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: #fff url(https://export.otpusk.com/os/excursion/select-bg.png) no-repeat 3px center;
+    pointer-events: none;
+    cursor: pointer; 
+}
+
+/*select'ы*/
+#exs_container #exs_search-container .exs_search-label select {
+    background: none;
+    border: none;
+    display: block;
+    height: 35px;
+    min-height: 35px;
+    width: 100% !important;
+    padding: 0 6px;
+    margin: 0;
+    cursor: pointer;
+}
+
+/*Кнопка "Найти туры"*/
+#exs_container #exs_search-container input.exs_search-submit {
+    background-color: #a9cf55;
+    border: 2px solid #a9cf55;
+    border-radius: 3px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 700;
+    height: 37px;
+    width: 132px;
+    position: absolute;
+    right: 30px;
+    top: 67px;
+    padding: 0;
+    text-transform: none;
+}
+#exs_container #exs_search-container .exs_search-submit:hover {
+    border-color: #fff;
+}
+
+/*Класс отвечающий за подчеркивание и другие стили элементов "Добавить пункт назначения" и "Уточнить город отправления и транспорт?"*/
+.exs_und {
+    cursor: pointer;
+    position: relative;
+    font-size: 12px;
+    border-bottom: 1px solid #93AED2;
+}
+
+/*Элемент "Добавить пункт назначения"*/
+.exs_add-dir-btn {
+    padding-left: 16px;
+    background: url(https://export.otpusk.com/os/excursion/exs-add-i.png) no-repeat left 5px;
+    margin-top: 6px;
+}
+
+/*Контейнер для добавленных пунктов назначения*/
+.exs_dir-list {
+    background: #fff;
+    border: 1px solid #d4d4d4;
+    border-top: none;
+    border-radius: 0 0 3px 3px;
+    padding: 2px 5px 0;
+    margin-top: -2px;
+}
+
+/*Элемент добавленного пункта назначения*/
+.exs_dir-item {
+    border-top: 1px solid #E0E0E0;
+    color: #666;
+    font-size: 13px;
+    padding: 3px 5px;
+    position: relative;
+}
+
+/*Элемент отвечающий за удаление соответствующего пункта назначения (иконка х справа)*/
+.exs_dir-remove {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    cursor: pointer;
+    background: url(https://export.otpusk.com/os/excursion/exs-dir-remove.png) no-repeat 0 0;
+    top: 7px;
+    right: 2px;
+    opacity: .8;
+}
+.exs_dir-remove:hover {
+    opacity: 1;
+}
+
+/*Элемент "Уточнить город отправления и транспорт?"*/
+.exs_search-extended {
+    font-size: 15px;
+    padding-left: 15px;
+    position: absolute;
+    left: 281px;
+    top: 111px;
+}
+.exs_extended-btn:hover {
+    text-decoration: none;
+}
+
+/*Треурольник слева от "Уточнить город отправления и транспорт?"*/
+.exs_extended-btn:before {
+    content: '';
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 6px 4px 0 4px;
+    border-color: #fff transparent transparent;
+    position: absolute;
+    top: 5px;
+    left: -13px;
+}
+
+/*Треурольник слева от "Уточнить город отправления и транспорт?" в открытом состоянии*/
+.opened .exs_extended-btn:before {
+    border-width: 0 4px 6px 4px;
+    border-color: transparent transparent #fff;
+}
+
+/*Контейнер с элементами уточнения города отправления и транспорта*/
+.exs_search-extended-container {
+    margin-top: 24px;
+    padding-bottom: 0px;
+    position: relative;
+}
+
+/*Заголовок "Из" слева от select'a выбора города*/
+.exs_search-from .fl {
+    font-size: 14.5px;
+    position: relative;
+    top: 10px;
+    margin-right: 8px;
+}
+
+.exs_search-extended-container .exs_search-label {
+    width: auto;
+}
+
+/*select выбора города*/
+#exs_container #exs_search-container .exs_search-from select {
+    padding-right: 25px;
+}
+
+/*Контейнер элементов выбора транспорта*/
+.exs_search-transport {
+    position: absolute;
+    left: 251px;
+    top: 10px;
+    font-size: 15px;
+}
+
+/*Заголовок "Транспорт"*/
+.exs_search-transport-title {
+    float: left;
+    font-weight: bold;
+}
+
+/*Контейнер input'a выбора транспорта и названия*/
+#exs_container #exs_search-container .exs_search-transport label {
+    float: left;
+    display: block;
+    margin-left: 20px;
+}
+
+/*Стандартный input спрятан, ниже будут стили для пользовательского input'a*/
+#exs_container #exs_search-container .exs_search-transport label input {
+    width: 0;
+    height: 0;
+    opacity: 0;
+    display: none;
+}
+
+/*Пользовательский input*/
+.exs_search-transport label span {
+    display: block;
+    padding-left: 26px;
+    background: url(https://export.otpusk.com/os/excursion/exs-checkbox.png) no-repeat 0 1px;
+    cursor: pointer;
+    position: relative;
+}
+
+/*Пользовательский input в выбранном состоянии*/
+#exs_container #exs_search-container .exs_search-transport label input:checked+span:before {
+    content: '';
+    position: absolute;
+    width: 11px;
+    height: 11px;
+    left: 3px;
+    top: 4px;
+    background: url(https://export.otpusk.com/os/excursion/exs-checked.png) no-repeat 0 0;
+}
+
+/*=====Стили autocomplete выбора страны, курорта (начало)=====*/
+.ui-autocomplete {
+    border-radius: 0;
+    box-sizing: border-box;
+    padding: 0;
+}
+.ui-autocomplete-loading + .ui-helper-hidden-accessible + .os-spinner {
+    display: block !important;
+}
+.ui-autocomplete.default-list {
+    max-height: 474px;
+    overflow-y: scroll;
+}
+.ui-autocomplete li {
+    text-align: left;
+}
+.ui-autocomplete .type-item {
+    background-color: #f7f7f7;
+    color: #888;
+    font-size: 11px;
+    padding: 5px 8px 4px;
+    text-transform: uppercase;
+}
+.ui-autocomplete .ui-menu-item .ui-corner-all {
+    background-color: #fff;
+    box-sizing: border-box;
+    cursor: pointer;
+    display: block;
+    font-family: Arial,Helvetica,sans-serif;
+    min-height: 29px;
+    padding: 5px 8px !important;
+    position: relative;
+}
+.ui-autocomplete .country.ui-menu-item .ui-corner-all .label,
+.ui-autocomplete .city.ui-menu-item .ui-corner-all .label {
+    font-size: 15px;
+    background-color: transparent;
+    text-shadow: none;
+    font-weight: normal;
+    display: block;
+    line-height: 16px;
+    height: 16px;
+    padding: 0;
+    white-space: nowrap;
+}
+.ui-autocomplete .country.ui-menu-item .ui-corner-all.ui-state-focus .price-from,
+.ui-autocomplete .country.ui-menu-item .ui-corner-all.ui-state-focus .label,
+.ui-autocomplete .city.ui-menu-item .ui-corner-all.ui-state-focus .price-from,
+.ui-autocomplete .city.ui-menu-item .ui-corner-all.ui-state-focus .label {
+    color: #999;
+}
+.ui-autocomplete .ui-menu-item .ui-corner-all .label .gfont {
+    color: #999;
+    font-size: 15px;
+}
+.ui-autocomplete .ui-menu-item .ui-corner-all .price-from {
+    float: right;
+    font-size: 13px;
+    margin: 2px 0 0 5px;
+}
+.ui-autocomplete .ui-menu-item .no-tours .price-from {
+    color: #c66;
+}
+.ui-autocomplete .ui-menu-item .no-tours .label {
+    color: #999;
+}
+.ui-autocomplete .ui-menu-item .no-tours .label .gfont {
+    color: #aeaeae;
+}
+.ui-menu-item:hover a {
+    background-image: none !important;
+    background-color: red !important;
+}
+.ui-autocomplete div.os-clearfix .label-wrap .label {
+    color: #888;
+    display: block;
+    font-size: 15px;
+    height: 30px;
+    padding: 8px 8px 3px;
+}
+.ui-autocomplete .list_bg {
+    background: transparent url("../../images/onsite/ui_list_bg2.png") repeat-x scroll left top;
+    border: 0 none;
+    height: 5px;
+    left: 2px;
+    position: absolute;
+    width: 100%;
+    z-index: 110;
+}
+.country.ui-menu-item:hover a,
+.country.ui-menu-item a:hover,
+.city.ui-menu-item:hover a,
+.city.ui-menu-item a:hover {
+    background-image: none !important;
+    background-color: #E2E8EF !important;
+    border: none !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+}
+.country.ui-menu-item a,
+.city.ui-menu-item a {
+    background-image: none !important;
+    background-color: #fff !important;
+    border: none !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+}
+.country.ui-menu-item a.ui-state-focus,
+.city.ui-menu-item a.ui-state-focus {
+    background-color: #E2E8EF !important;
+}
+.country.ui-menu-item a,
+.city.ui-menu-item a {
+    min-height: 26px !important;
+    height: 26px !important;
+}
+.country.ui-menu-item .price-from,
+.country.ui-menu-item .label-wrap,
+.city.ui-menu-item .price-from,
+.city.ui-menu-item .label-wrap {
+    position: relative;
+}
+.country.ui-menu-item .label-wrap,
+.city.ui-menu-item .label-wrap {
+    display: block;
+    padding-right: 85px;
+}
+.country.ui-menu-item .price-from,
+.city.ui-menu-item .price-from {
+    top: -3px;
+    color: #999;
+}
+.ui-menu-item .label-wrap {
+    color: #666 !important;
+}
+.country.ui-state-disabled,
+.city.ui-state-disabled {
+    margin: 0 !important;
+}
+.country.ui-state-disabled,
+.city.ui-state-disabled {
+    opacity: 1 !important;
+}
+.country.ui-menu-item.ui-state-disabled:hover a,
+.country.ui-menu-item.ui-state-disabled a:hover,
+.city.ui-menu-item.ui-state-disabled:hover a,
+.city.ui-menu-item.ui-state-disabled a:hover,
+.country.ui-state-disabled a,
+.city.ui-state-disabled a {
+    background: #fff url(https://export.otpusk.com/os/excursion/active-menu.jpg) no-repeat 7px 5px !important;
+}
+.ui-menu-item.country.ui-state-disabled a,
+.ui-menu-item.city.ui-state-disabled a {
+    padding-left: 27px !important;
+}
+.exs_search-to .ui-autocomplete-loading {
+    background: #fff url(https://export.otpusk.com/os/excursion/loading.gif) no-repeat scroll right 28px center !important;
+}
+/*=====Стили autocomplete выбора страны, курорта (конец)=====*/
+
+/*=====Стили для datepicker'a выбора дат (начало)=====*/
+/*Контейнер datepicker'a*/
+.datepicker.dropdown-menu {
+    background: #E0E8F1 none repeat scroll 0 0;
+    font-family: Arial,Helvetica,sans-serif;
+    padding: 5px 10px 10px;
+    position: absolute;
+    z-index: 105;
+    border: 1px solid #d4d4d4 !important;
+    border-radius: 3px;
+    margin-top: 9px;
+}
+
+/*Контейнер для "Любая дата"*/
+.os-datepicker-custom-from,
+.os-datepicker-custom-to {
+    font-size: 12px;
+    color: #4e91c7;
+    margin: 5px 0 13px;
+}
+.os-datepicker-custom-from label,
+.os-datepicker-custom-to label {
+    display: table-cell;
+    height: 20px;
+    vertical-align: middle;
+    position: relative;
+}
+#exs_container #exs_search-container .os-datepicker-custom-from input,
+#exs_container #exs_search-container .os-datepicker-custom-to input {
+    position: relative;
+    top: 3px;
+    margin: 0 5px 0 0;
+}
+
+/*Контейнер календаря*/
+.datepicker.dropdown-menu .datepicker-days {
+    padding: 3px;
+    border-radius: 3px;
+    background-color: #fff;
+}
+
+/*Элементы текущего месяца и переключения месяца*/
+.datepicker.dropdown-menu .table-condensed .prev,
+.datepicker.dropdown-menu .table-condensed .next,
+.datepicker.dropdown-menu .table-condensed .switch {
+    background-color: #fff !important;
+    color: #4e91c7;
+    padding: 0 0 4px;
+}
+.datepicker.dropdown-menu .table-condensed .switch {
+    text-align: center;
+    text-transform: uppercase;
+    font: 700 14px/18px Arial;
+}
+.table-condensed .prev .p-arr,
+.table-condensed .next .n-arr {
+    cursor: pointer;
+    display: block;
+    height: 16px;
+    width: 16px;
+}
+/*Переключения месяца назад*/
+.datepicker.dropdown-menu .table-condensed .prev .p-arr {
+    background: transparent url(https://export.otpusk.com/os/excursion/dp-arrows.png) no-repeat scroll left center;
+    width: 7px;
+}
+/*Переключения месяца вперед*/
+.datepicker.dropdown-menu .table-condensed .next .n-arr {
+    background: transparent url(https://export.otpusk.com/os/excursion/dp-arrows.png) no-repeat scroll right center;
+    float: right;
+    width: 7px;
+}
+
+/*Таблица календаря*/
+.datepicker.dropdown-menu .table-condensed {
+    border-collapse: separate;
+    border-spacing: 3px 3px;
+    line-height: normal;
+    width: 220px;
+}
+
+/*Ячейка календаря*/
+.datepicker.dropdown-menu .table-condensed td {
+    border: 1px solid #EAEAE8;
+    padding: 1px 5px;
+    text-align: center;
+}
+
+/*Ячейки с днями недели (пн, вт, ср и т.д.)*/
+.datepicker.dropdown-menu .table-condensed .dow {
+    background-color: #fff;
+    color: #999;
+    text-align: center;
+    text-transform: lowercase;
+    font-weight: 400;
+    font-size: 13px;
+}
+
+/*Ячейка с датой*/
+.datepicker.dropdown-menu .table-condensed .day {
+    background-color: #EAEAE8;
+    color: #4e91c7;
+    cursor: pointer;
+    font-size: 12px;
+}
+.datepicker.dropdown-menu .table-condensed .day:hover {
+    border-color: #4e91c7;
+}
+
+/*Активные ячейки с датой*/
+.datepicker.dropdown-menu .table-condensed .day.first-active,
+.datepicker.dropdown-menu .table-condensed .day.second-active,
+.datepicker.dropdown-menu .table-condensed .day.active {
+    background: #A4DE55;
+    border-color: #A4DE55;
+    color: #fff;
+}
+.datepicker.dropdown-menu .table-condensed .day.hover {
+    background: #D0F59E;
+    border-color: #D0F59E;
+}
+.datepicker.dropdown-menu .table-condensed .day.first-active {
+    border-radius: 5px 0 0 5px;
+}
+.datepicker.dropdown-menu .table-condensed .day.second-active {
+    border-radius: 0 5px 5px 0;
+}
+
+/*Неактивные ячейки с датой*/
+.datepicker.dropdown-menu .table-condensed .disabled {
+    cursor: not-allowed;
+    background-color: #F4F4F4;
+    border-color: #F4F4F4 !important;
+    color: #CACACA;
+}
+/*=====Стили для datepicker'a выбора дат (конец)=====*/
+
+/*Стили для select формы*/
+@-moz-document url-prefix() {
+    .exs_container ::-moz-focus-inner {border: none}
+    .exs_container select:-moz-focusring { color: transparent; text-shadow: 0px 0px 0px #666; }
+}
+#exs_container #exs_search-container .exs_container select {
+    -webkit-box-shadow: none;
+    outline: none;
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+/*
+exs_mobile-form
+Стили для формы шириной меньше 951рх
+*/
+.exs_mobile-form .exs_search-form .exs_search-extended,
+.exs_mobile-form .exs_search-form .exs_search-title,
+.exs_mobile-form .exs_search-form > .clearfix,
+.exs_mobile-form #exs_container #exs_search-container input.exs_search-submit {
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.exs_mobile-form .exs_search-title {
+    line-height: normal;
+    padding-top: 20px;
+    height: 85px;
+    padding-left: 0;
+}
+.exs_mobile-form .exs_search-title span {
+    display: block;
+    margin: 3px 0 0;
+}
+.exs_mobile-form .exs_search-to,
+.exs_mobile-form .exs_search-dates,
+.exs_mobile-form .exs_search-duration,
+.exs_mobile-form .exs_search-type {
+    float: none;
+}
+.exs_mobile-form .exs_search-to,
+.exs_mobile-form #exs_container #exs_search-container .exs_search-to input {
+    width: 100%;
+}
+.exs_mobile-form .exs_add-dir-btn {
+    margin-bottom: 30px;
+}
+.exs_mobile-form .exs_search-dates,
+.exs_mobile-form .exs_search-duration,
+.exs_mobile-form .exs_search-type {
+    margin-left: 0;
+}
+.exs_mobile-form .exs_search-dates {
+    margin-right: 140px;
+}
+.exs_mobile-form .exs_search-duration {
+    float: right;
+    margin-top: -37px;
+}
+.exs_mobile-form .exs_search-col {
+    width: 50%;
+    min-width: 76px;
+}
+.exs_mobile-form .exs_datepicker-wrap-1 {
+    padding-right: 7px;
+}
+.exs_mobile-form .exs_datepicker-wrap-2 {
+    margin-left: 0;
+    padding-left: 7px;
+}
+.exs_mobile-form .exs_datepicker-wrap-2:before {
+    left: -6px;
+}
+.exs_mobile-form .exs_search-type {
+    width: 100%;
+    margin-top: 18px;
+}
+.exs_mobile-form .exs_search-extended {
+    margin-top: 12px;
+}
+.exs_mobile-form .exs_search-extended-container {
+    margin: 17px 0 2px;
+}
+.exs_mobile-form .exs_search-transport {
+    position: static;
+}
+.exs_mobile-form .exs_search-from:after {
+    content: '';
+    clear: both;
+    display: table;
+}
+.exs_mobile-form .exs_search-transport-title {
+    float: none;
+    margin: 20px 0 18px;
+}
+.exs_mobile-form .exs_search-transport label {
+    width: 50%;
+    margin-left: 0;
+    margin-bottom: 10px;
+}
+.exs_mobile-form .exs_search-extended,
+.exs_mobile-form #exs_container #exs_search-container input.exs_search-submit {
+    position: static;
+}
+.exs_mobile-form #exs_container #exs_search-container input.exs_search-submit {
+    width: 100%;
+    margin-top: 15px;
+    display: block;
+}
+
+/*
+exs_sm-mobile-form
+Стили для формы шириной меньше 400рх
+*/
+.exs_sm-mobile-form .exs_search-form {
+    padding: 0 15px 32px;
+}
+.exs_sm-mobile-form .exs_search-transport label {
+    width: 100%;
+}
+.exs_sm-mobile-form .exs_search-dates {
+    margin-right: 0;
+}
+.exs_sm-mobile-form .exs_search-duration {
+    float: none;
+    margin-top: 18px;
+    width: 100%;
+}
+.exs_sm-mobile-form .exs_search-duration:after {
+    content: '';
+    clear: both;
+    display: table;
+}
+.exs_sm-mobile-form .datepicker.dropdown-menu {
+    left: 15px !important;
+}
+.exs_sm-mobile-form .datepicker.dropdown-menu + .datepicker.dropdown-menu {
+    left: auto !important;
+    right: 15px !important;
+}
+.exs_sm-mobile-form .exs_search-title {
+    margin: 0;
+    padding-left: 0;
+    padding-right: 0;
+}

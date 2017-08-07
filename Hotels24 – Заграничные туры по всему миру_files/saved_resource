@@ -1,0 +1,2 @@
+document.write('<script src="https://export.otpusk.com/jsapi/excursion.min.js"></script>');
+document.write('<link rel="stylesheet" type="text/css" href="https://export.otpusk.com/jsapi/excursion.min.css"></link>');

@@ -1,0 +1,311 @@
+(function($){
+    $(function(){
+        jQuery(document).ready(function($){
+
+            // $('<img/>').attr('src', '/wp-content/themes/odev-theme/images/header-bg.jpg').on('load', function() {
+            //     $(this).remove();
+            //     $('header.header').css('background-image', 'url(/wp-content/themes/odev-theme/images/header-bg.jpg)');
+            //     $('.header-modules').css('opacity', 1);
+            // });
+
+            /* menu. second level */
+            var menuTimer;
+            $('.menu-item-has-children > *').hover(
+                function(){
+                    clearTimeout(menuTimer);
+                    if( !$(this).parent().hasClass('open') )
+                        $(this).siblings('.sub-menu')
+                            .css('left', $(this).position().left).stop()
+                            .slideDown(200, function(){ $(this).parent().addClass('open'); })
+                            .parent().siblings().find('.sub-menu').slideUp(100, function(){ $(this).parent().removeClass('open'); });
+                }, function(){
+                    menuTimer = setTimeout(function(){
+                        $('.sub-menu').slideUp(100, function(){ $(this).parent().removeClass('open'); });
+                    }, 400);
+                }
+            );
+            $('.menu-item-has-children > a').click(function(e){
+                if(!$(this).parent().hasClass('open')){
+                    $(this).parent().trigger('mouseenter');
+                    return false;
+                }
+            });
+
+            // $(".wpcf7-form input[type='tel']").mask("+38 (999) 999 99 99",{placeholder:"+38 (___) ___ __ __"});
+
+            $('#mobile-menu-btn').click(function(){
+                $(this).toggleClass('active');
+                $('header .menu').slideToggle(200);
+            });
+            
+            $('[data-uk-tab]').on('show.uk.switcher', function(event, area){
+                $(window).resize();
+            });
+
+            $('#load-more').click(function(){
+                var btn = $(this);
+                if(btn.hasClass('active'))
+                    return;
+                btn.addClass('active');
+                $.ajax({
+                    url: ajaxUrl,
+                    type: 'POST',
+                    data: {
+                        action: 'load_more',
+                        args: args,
+                        limit: limit,
+                        offset: offset
+                    },
+                    complete: function(data){
+                        console.log(data.responseText);
+                        $('.archive-grid').append(data.responseText);
+                        offset += limit;
+                        if(offset >= posts_count)
+                            btn.hide();
+                        btn.removeClass('active');
+                    }
+                });
+            });
+
+
+
+
+
+
+            jQuery( '.fake-submit-button' ).click( function () {
+                jQuery( '.os-form-submit_button' ).trigger( 'click' );
+            } );
+
+            //SET COUNT OF CHILDREN FROM HASH
+            var urlHash = window.location.hash;
+            var peopleParam = urlHash.match( /p=(\d*)/ );
+            if ( peopleParam !== null && peopleParam.hasOwnProperty( '1' ) ) {
+                var peopleParamValue = peopleParam[ 1 ];
+                if ( peopleParamValue.length > 1 ) {
+                    jQuery( '.fake-children-select' ).html( '<span class="bottom-dots">1 ребенок</span>' );
+                    jQuery( '.os-people-picker .children .inputs .os-block_label' ).show();
+                    jQuery( '.os-people-picker .children .inputs .ch1' ).show();
+                }
+                if ( peopleParamValue.length > 3 ) {
+                    jQuery( '.fake-children-select' ).html( '<span class="bottom-dots">2 детей</span>' );
+                    jQuery( '.os-people-picker .children .inputs .ch2' ).show();
+                }
+            }
+
+            jQuery( '.os-point-from select' ).change( function () {
+                var depCityText = jQuery(".os-point-from option:selected").html();
+
+                var fromDepCityText = function() {
+                    switch(depCityText) {
+                        case 'Запорожье':
+                            return 'Запорожья';
+                        case 'Винница':
+                            return 'Винницы';
+                        case 'Каменец-Подольский':
+                            return 'Каменец-Подольского';
+                        case 'Хмельницкий':
+                            return 'Хмельницкого';
+                        case 'Черновцы':
+                            return 'Черновцов';
+                        case 'Кривой Рог':
+                            return 'Кривого Рога';
+                        case 'Коломыя':
+                            return 'Коломыи';
+                        case 'Мелитополь':
+                            return 'Мелитополя';
+                        case 'Одесса':
+                            return 'Одессы';
+                        case 'Ровно':
+                            return 'Ровно';
+                        case 'Любой город (без транспорта)':
+                            return 'любого города';
+                        default:
+                            return depCityText + 'а';
+                    }
+                }();
+
+                jQuery( '.fake-point-from' ).html( 'Из <span class="bottom-dots">' + fromDepCityText + '</span>' );
+            } );
+
+            jQuery( '.os-tour-duration select' ).change( function () {
+                var myVal = jQuery( ".os-tour-duration option:selected" ).html();
+                jQuery( '.fake-tour-duration' ).html( myVal );
+            } );
+
+            jQuery( '.people select' ).change( function () {
+                var myVal = jQuery( ".people option:selected" ).html();
+                sentEnd = 'взрослых';
+                if ( myVal == 1 ) {
+                    sentEnd = 'взрослый';
+                }
+                jQuery( '.fake-people-select' ).html( '<span class="bottom-dots">' + myVal + ' ' + sentEnd + '</span>' );
+            } );
+
+            jQuery( '.children select' ).change( function () {
+                var myVal = jQuery( ".children option:selected" ).html();
+                if ( myVal == 1 ) {
+                    jQuery( '.fake-children-select' ).html( '<span class="bottom-dots">1 ребенок</span>' );
+                    jQuery( '.os-people-picker .children .inputs > .os-block_label' ).addClass( 'show' );
+                }
+                else {
+                    jQuery( '.fake-children-select' ).html( '<span class="bottom-dots">' + myVal + ' детей</span>' );
+                }
+            } );
+
+            jQuery( '.login-bl' ).click( function () {
+                jQuery( '.login-overlay' ).show();
+            } );
+            jQuery( '.login-overlay' ).click( function () {
+                jQuery( '.login-overlay' ).hide();
+            } );
+            jQuery( '.login-overlay' ).children( '.login-window' ).click( function ( e ) {
+                e.stopPropagation();
+            } );
+
+            //filters toggle
+            jQuery('body').on('click', '.h-cf-wrap .os-block_label', function(){
+                jQuery('.h-category, .h-food').toggle();
+                jQuery(this).parent().toggleClass('active');
+                jQuery('.os-extended').toggleClass('cat-closed');
+            });
+            jQuery('body').on('click', '.h-rating .os-block_label', function(){
+                jQuery('.h-rating .os-extended-block').toggle();
+                jQuery(this).parent().toggleClass('active');
+                jQuery('.os-extended').toggleClass('rat-closed');
+            });
+            jQuery('body').on('click', '.h-price .os-block_label', function(){
+                jQuery('.h-price .os-extended-block').toggle();
+                jQuery(this).parent().toggleClass('active');
+                jQuery('.os-extended').toggleClass('price-closed');
+            });
+            jQuery('body').on('click', '.h-transp .os-block_label', function(){
+                jQuery('.h-transp .os-extended-block').toggle();
+                jQuery(this).parent().toggleClass('active');
+            });
+            jQuery('body').on('click', '.os-extended-service .os-block_label', function(){
+                jQuery('.os-extended-service .os-extended-block').toggle();
+                jQuery(this).parent().toggleClass('active');
+            });
+
+            jQuery('.os-extended').append('<div class="os-extended-close"></div>');
+            jQuery('.os-extended').append('<div class="fake-filter-submit">Найти туры</div>');
+            jQuery('body').on('click', '.os-extended-close', function(){
+                jQuery('.search-wrapper').addClass('collapsed').removeClass('expanded');
+                $('.os-extended').slideUp(200);
+            });
+            jQuery('body').on('click', '.fake-filter-submit', function() {
+                jQuery('.os-form-submit_button').trigger('click');
+            });
+
+            var formWrapper = $('body');
+            formWrapper.on('DOMSubtreeModified.modifySearch', function() {
+                if ($(this).find(".os-os").length) {
+                    formWrapper.off('DOMSubtreeModified.modifySearch');
+                    modifySearchDom();
+                }
+            });
+            var modifySearchDom = function() {
+                var module = $('.os-os');
+                $('.fake-toggle-extended').click(function(){
+                    $('.os-extended').fadeToggle(200);
+                    $( '.search-wrapper' ).toggleClass( 'expanded' ).toggleClass( 'collapsed' );
+                });
+                $('.search-hotel-tooltip-wrap').click(function(){
+                    $('.search-hotel-tooltip-body').fadeIn(200);
+                });
+                $(document).click(function(event) {
+                    if ($(event.target).closest(".search-hotel-tooltip-body, .search-hotel-tooltip-wrap").length) return;
+                    $(".search-hotel-tooltip-body").fadeOut(200);
+                    event.stopPropagation();
+                });
+                $('body .os-form-wrap form, .search-hotel-tooltip-wrap').css('opacity', 1);
+                jQuery( '.os-point-to .os-block_label' ).text( 'Куда' ).css( 'opacity', '1' );
+                jQuery( '.os-tour-dates .os-block_label' ).text( 'Даты начала тура' ).css( 'opacity', '1' );
+                jQuery( '.os-tour-duration .os-block_label' ).text( 'Длительность' ).css( 'opacity', '1' );
+                jQuery( '.fake-tour-duration' ).html(jQuery( ".os-tour-duration option:selected" ).html());
+                jQuery( '.fake-point-from, .fake-tour-duration, .fake-people-select, .fake-children-select, .fake-toggle-extended, .fake-submit-button' ).css( 'opacity', '1' );
+                jQuery( '.os-block_label' ).css( 'opacity', '1' );
+                jQuery('.my-form-wrapper').css('opacity', '1');
+            };
+
+
+        });
+    });
+})(jQuery);
+
+
+
+
+
+jQuery( window ).on( 'load', function () {
+    var pageUrl = window.location.href;
+
+    var depCityParam = pageUrl.match(/d=(\d+)/);
+    var depCityId = false;
+
+    if (depCityParam) {
+        depCityId = +depCityParam[1];
+    }
+
+    var fromCityText = function () {
+        switch (depCityId) {
+            case 1874:
+                return 'Днепра';
+            case 1875:
+                return 'Запорожья';
+            case 1708:
+                return 'Черновцов';
+            case 2056:
+                return 'Житомира';
+            case 2025:
+                return 'Хмельницкого';
+            case 1395:
+                return 'Каменец-Подольского';
+            case 2012:
+                return 'Херсона';
+            case 1544:
+                return 'Киева';
+            case 2024:
+                return 'Луцка';
+            case 1397:
+                return 'Львова';
+            case 1358:
+                return 'Одессы';
+            case 1398:
+                return 'Ужгорода';
+            case 1883:
+                return 'Кривого Рога';
+            case 1880:
+                return 'Харькова';
+            case 1934:
+                return 'Винницы';
+            case 1963:
+                return 'Николаева';
+            case 1981:
+                return 'Ровно';
+            case 1878:
+                return 'Чопа';
+            case 1666:
+                return 'Коломыи';
+            case 2166:
+                return 'Мелитополя';
+            default:
+                return 'Киева';
+        }
+    }();
+
+    jQuery( '.fake-point-from' ).html( 'Из <span class="bottom-dots">' + fromCityText + '</span>' );
+    jQuery( '.os-point-from select' ).attr( 'title', fromCityText );
+
+
+
+} );
+$(document).ready(function() {
+ 
+$('a[href^="#"]').click(function(){
+        var el = $(this).attr('href');
+        $('body').animate({
+            scrollTop: $(el).offset().top}, 2000);
+        return false; 
+});
+});

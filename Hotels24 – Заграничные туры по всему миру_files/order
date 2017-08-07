@@ -1,0 +1,3 @@
+document.write('<script src="https://export.otpusk.com/jsapi/order.min.js"></script>');
+document.write('<link rel="stylesheet" type="text/css" href="https://export.otpusk.com/jsapi/order.min.css"></link>');
+document.write('<link rel="stylesheet" type="text/css" href="https://export.otpusk.com/os/templates/css/font-awesome.css"></link>');
